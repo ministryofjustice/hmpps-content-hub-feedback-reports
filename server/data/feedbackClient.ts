@@ -31,6 +31,7 @@ export default class FeedbackClient {
 
   async retrieveFeedback(startDate: string, endDate: string) {
     try {
+      logger.info(startDate, endDate)
       return this.connection<Feedback>('feedback').select('*')
     } catch (error) {
       logger.error('Database select failed', error)
