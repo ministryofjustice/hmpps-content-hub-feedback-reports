@@ -5,7 +5,36 @@
 
 {% block content %}
 
-  <h1>This site is under construction...</h1>
-  <p>Please check back later when there is content to view.</p>
+  <h1>Feedback</h1>
 
+  <table id="feedbackTable" class="stripe">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Content Type</th>
+        <th>Sentiment</th>
+        <th>Comments</th>
+        <th>Date / Time</th>
+        <th>Categories</th>
+        <th>Series</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Title</th>
+        <th>Content Type</th>
+        <th>Sentiment</th>
+        <th>Comments</th>
+        <th>Date / Time</th>
+        <th>Categories</th>
+        <th>Series</th>
+      </tr>
+    </tfoot>
+  </table>
+
+{% endblock %}
+
+{% block bodyEnd %}
+  <script type="module" src="{{ '/assets/js/app.js' | assetMap }}"></script>
+  <script src="/assets/js/feedbackTable.js"></script>
 {% endblock %}
