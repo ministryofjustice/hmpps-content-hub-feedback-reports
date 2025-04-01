@@ -1,0 +1,73 @@
+{% extends "../partials/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{%- from "moj/components/date-picker/macro.njk" import mojDatePicker -%}
+
+{% set pageTitle = applicationName + " - Home" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+  <h1>Feedback</h1>
+
+  <form method="POST">
+    <input type="hidden" name="_csrf" id="csrf" value="{{ csrfToken }}">
+    {{ mojDatePicker({
+      id: "dateFrom",
+      name: "dateFrom",
+      label: {
+        text: "Date from"
+      },
+      hint: {
+        text: "For example, 17/5/2024."
+      }
+    }) }}
+    {{ mojDatePicker({
+      id: "dateTo",
+      name: "dateTo",
+      label: {
+        text: "Date to"
+      },
+      hint: {
+        text: "For example, 17/5/2024."
+      }
+    }) }}
+    {{ govukButton({
+      id: "changeDates",
+      name: "changeDates",
+      text: "Update",
+      element: "button"
+    }) }}
+  </form>
+
+  <table id="feedbackTable" class="stripe">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Establishment</th>
+        <th>Content Type</th>
+        <th>Sentiment</th>
+        <th>Comments</th>
+        <th>Date / Time</th>
+        <th>Categories</th>
+        <th>Series</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Title</th>
+        <th>Establishment</th>
+        <th>Content Type</th>
+        <th>Sentiment</th>
+        <th>Comments</th>
+        <th>Date / Time</th>
+        <th>Categories</th>
+        <th>Series</th>
+      </tr>
+    </tfoot>
+  </table>
+
+{% endblock %}
+
+{% block bodyEnd %}
+  <script type="module" src="{{ '/assets/js/app.js' | assetMap }}"></script>
+{% endblock %}

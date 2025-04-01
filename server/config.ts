@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
+
 const production = process.env.NODE_ENV === 'production'
 
 function get<T>(name: string, fallback: T, options = { requireInProduction: false }): T | string {
@@ -95,6 +98,20 @@ export default {
   },
   sqs: {
     audit: auditConfig(),
+  },
+  feedback: {
+    client: 'pg',
+    connection: {
+      host: get('FEEDBACK_DATABASE_URL', 'localhost'),
+      port: 5432,
+      user: get('FEEDBACK_DATABASE_USERNAME', 'feedbackuser'),
+      password: get('FEEDBACK_DATABASE_PASSWORD', 'feedbackpassword'),
+      database: get('FEEDBACK_DATABASE_NAME', 'feedbackdatabase'),
+      ssl: {
+        rejectUnauthorized: false,
+        cert: readFileSync(path.join(__dirname, '../../global-bundle.pem')),
+      },
+    },
   },
   ingressUrl: get('INGRESS_URL', 'http://localhost:3000', requiredInProduction),
   environmentName: get('ENVIRONMENT_NAME', ''),
