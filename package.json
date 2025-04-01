@@ -30,10 +30,7 @@
   "jest": {
     "transform": {
       "^.+\\.tsx?$": [
-        "ts-jest",
-        {
-          "isolatedModules": true
-        }
+        "ts-jest"
       ]
     },
     "collectCoverageFrom": [
@@ -91,6 +88,7 @@
     "connect-flash": "^0.1.1",
     "connect-redis": "^8.0.2",
     "csrf-sync": "^4.0.3",
+    "date-fns": "^4.1.0",
     "datatables.net": "^2.2.2",
     "datatables.net-buttons": "^3.2.2",
     "datatables.net-buttons-dt": "^3.2.2",

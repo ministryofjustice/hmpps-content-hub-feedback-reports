@@ -127,6 +127,12 @@ jQuery(function () {
       // },
     },
     {
+      data: 'establistment',
+      // createdCell: function (td, _cellData, rowData) {
+      //   $(td).html(`<a href="/teams/${rowData.attributes.slug}">${rowData.attributes.name}</a>`)
+      // },
+    },
+    {
       data: 'contentType',
       // createdCell: function (td, _cellData, rowData) {
       //   $(td).html(`<a href="/teams/${rowData.attributes.slug}">${rowData.attributes.name}</a>`)

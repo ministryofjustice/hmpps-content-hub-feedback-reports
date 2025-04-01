@@ -1,11 +1,14 @@
 import type { Express } from 'express'
 import request from 'supertest'
 import { appWithAllRoutes, user } from '../testutils/appSetup'
-import AuditService, { Page } from '../../services/auditService'
+import AuditService from '../../services/auditService'
+import FeedbackService from '../../services/feedbackService'
 
 jest.mock('../../services/auditService')
+jest.mock('../../services/feedbackService')
 
 const auditService = new AuditService(null) as jest.Mocked<AuditService>
+const feedbackService = new FeedbackService(null) as jest.Mocked<FeedbackService>
 
 let app: Express
 
@@ -13,6 +16,7 @@ beforeEach(() => {
   app = appWithAllRoutes({
     services: {
       auditService,
+      feedbackService,
     },
     userSupplier: () => user,
   })
@@ -22,19 +26,36 @@ afterEach(() => {
   jest.resetAllMocks()
 })
 
-describe('GET /', () => {
-  it('should render index page', () => {
-    auditService.logPageView.mockResolvedValue(null)
+describe('Reports', () => {
+  describe('GET /reports/data', () => {
+    it('should send feedback data as JSON ', () => {
+      feedbackService.retrieveFeedback.mockResolvedValue([
+        {
+          id: 1,
+          sessionId: 'session id',
+          feedbackId: 'feedback id',
+          date: '2024-01-01',
+          title: 'some title',
+          url: '/url/to/something',
+          contentType: 'AUDIO',
+          series: 'some series',
+          categories: 'category1, category 2',
+          topics: 'some topic',
+          sentiment: 'LIKE',
+          comment: 'undefined',
+          establishment: 'BERWYN',
+        },
+      ])
 
-    return request(app)
-      .get('/')
-      .expect('Content-Type', /html/)
-      .expect(res => {
-        expect(res.text).toContain('This site is under construction...')
-        expect(auditService.logPageView).toHaveBeenCalledWith(Page.HOME_PAGE, {
-          who: user.username,
-          correlationId: expect.any(String),
+      return request(app)
+        .get('/reports/data')
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          expect(res.text).toBe(
+            '[{"title":"some title","contentType":"AUDIO","sentiment":"LIKE","comment":"","date":"1 Jan 2024","categories":"category1, category 2","series":"some series","establistment":"BERWYN"}]',
+          )
+          expect(feedbackService.retrieveFeedback).toHaveBeenCalledWith('', '')
         })
-      })
+    })
   })
 })
