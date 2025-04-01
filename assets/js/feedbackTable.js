@@ -12,9 +12,9 @@ function createTable({
   const ajax = ajaxUrl && {
     url: ajaxUrl,
     dataSrc: '',
-    error: function () {
+    error: () => {
       if (ajaxUrl !== undefined) {
-        alert('An error occurred when loading table data.') // eslint-disable-line no-undef
+        alert('An error occurred when loading table data.')
       }
     },
   }
@@ -83,7 +83,7 @@ function createTable({
           .columns()
           .every(function () {
             const column = this
-            const title = column.footer().textContent + ' (regex)'
+            const title = `${column.footer().textContent}  (regex)`
 
             // Create input element
             const input = document.createElement('input')
@@ -104,7 +104,7 @@ function createTable({
   })
 }
 
-jQuery(function () {
+jQuery(() => {
   const columns = [
     {
       data: 'title',
