@@ -9,24 +9,26 @@
 
   <h1>Feedback</h1>
 
-  <form method="POST">
+  <form method="GET">
     <input type="hidden" name="_csrf" id="csrf" value="{{ csrfToken }}">
     {{ mojDatePicker({
-      id: "dateFrom",
-      name: "dateFrom",
+      id: "startDate",
+      name: "startDate",
       label: {
-        text: "Date from"
+        text: "Start date"
       },
+      value: startDate,
       hint: {
         text: "For example, 17/5/2024."
       }
     }) }}
     {{ mojDatePicker({
-      id: "dateTo",
-      name: "dateTo",
+      id: "endDate",
+      name: "endDate",
       label: {
-        text: "Date to"
+        text: "End date"
       },
+      value: endDate,
       hint: {
         text: "For example, 17/5/2024."
       }
@@ -69,5 +71,9 @@
 {% endblock %}
 
 {% block bodyEnd %}
+  <script nonce="{{ cspNonce }}">
+    const startDate = '{{ startDate }}'
+    const endDate = '{{ endDate }}'
+  </script>
   <script type="module" src="{{ '/assets/js/app.js' | assetMap }}"></script>
 {% endblock %}

@@ -6,7 +6,7 @@ jest.mock('knex')
 const mockSelect = jest.fn()
 const querybuilder = {
   select: mockSelect.mockReturnThis(),
-  where: jest.fn().mockReturnThis(),
+  whereBetween: jest.fn().mockReturnThis(),
 }
 const mockKnex = jest.fn().mockReturnValue(querybuilder)
 

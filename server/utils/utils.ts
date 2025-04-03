@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { DateTime } from 'luxon'
+
 const properCase = (word: string): string =>
   word.length >= 1 ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word
 
@@ -20,4 +23,58 @@ export const initialiseName = (fullName?: string): string | null => {
 
   const array = fullName.split(' ')
   return `${array[0][0]}. ${array.reverse()[0]}`
+}
+
+export const fromDatePicker = (datePickerDate: string, currentDate: Date = new Date()): string => {
+  const parsedDate = DateTime.fromFormat(datePickerDate, 'd/L/y', { locale: 'en-GB' })
+
+  if (parsedDate.isValid) {
+    return parsedDate.toFormat('d/L/yyyy')
+  }
+
+  return DateTime.fromJSDate(
+    new Date(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), currentDate.getUTCDate()),
+  ).toFormat('d/L/yyyy')
+}
+
+export const getStartDate = (startDate: string, currentDate: Date = new Date()): string => {
+  const parsedDate = DateTime.fromFormat(startDate, 'd/L/y', { locale: 'en-GB' })
+
+  if (parsedDate.isValid) {
+    return parsedDate
+      .set({
+        hour: 0,
+        minute: 0,
+        second: 0,
+      })
+      .toISO()
+  }
+
+  return DateTime.fromJSDate(
+    new Date(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), currentDate.getUTCDate()),
+  ).toISO()
+}
+
+export const getEndDate = (endDate: string, currentDate: Date = new Date()): string => {
+  const parsedDate = DateTime.fromFormat(endDate, 'd/L/y', { locale: 'en-GB' })
+
+  if (parsedDate.isValid) {
+    return parsedDate
+      .set({
+        hour: 23,
+        minute: 59,
+        second: 59,
+      })
+      .toISO()
+  }
+
+  return DateTime.fromJSDate(
+    new Date(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), currentDate.getUTCDate()),
+  )
+    .set({
+      hour: 23,
+      minute: 59,
+      second: 59,
+    })
+    .toISO()
 }
