@@ -5,8 +5,9 @@ jest.mock('knex')
 
 const mockSelect = jest.fn()
 const querybuilder = {
-  select: mockSelect.mockReturnThis(),
-  whereBetween: jest.fn().mockReturnThis(),
+  select: mockSelect.mockReturnValue({
+    whereBetween: jest.fn().mockReturnThis(),
+  }),
 }
 const mockKnex = jest.fn().mockReturnValue(querybuilder)
 
@@ -34,7 +35,7 @@ describe('FeedbackClient', () => {
 
       mockSelect.mockReturnValue([feedbackData])
 
-      await client.retrieveFeedback('', '')
+      await client.retrieveFeedback('1/1/2024', '1/1/2024')
 
       expect(mockSelect).toHaveReturnedWith([feedbackData])
     })
