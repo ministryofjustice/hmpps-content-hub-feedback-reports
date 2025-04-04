@@ -34,7 +34,7 @@ describe('Reports', () => {
           id: 1,
           sessionId: 'session id',
           feedbackId: 'feedback id',
-          date: '2024-01-01',
+          date: new Date('2024-01-01'),
           title: 'some title',
           url: '/url/to/something',
           contentType: 'AUDIO',
@@ -48,13 +48,13 @@ describe('Reports', () => {
       ])
 
       return request(app)
-        .get('/reports/data')
+        .get('/reports/data/1-1-2024/31-1-2024')
         .expect('Content-Type', /json/)
         .expect(res => {
           expect(res.text).toBe(
             '[{"title":"some title","contentType":"AUDIO","sentiment":"LIKE","comment":"","date":"1 Jan 2024","categories":"category1, category 2","series":"some series","establistment":"BERWYN"}]',
           )
-          expect(feedbackService.retrieveFeedback).toHaveBeenCalledWith('', '')
+          expect(feedbackService.retrieveFeedback).toHaveBeenCalledWith('1/1/2024', '31/1/2024')
         })
     })
   })
