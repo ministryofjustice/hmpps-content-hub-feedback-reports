@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { DateTime } from 'luxon'
 import { type RequestHandler, Router } from 'express'
 
