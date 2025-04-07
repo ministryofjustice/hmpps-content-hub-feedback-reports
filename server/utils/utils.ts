@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { DateTime } from 'luxon'
 
 const properCase = (word: string): string =>
@@ -25,7 +24,7 @@ export const initialiseName = (fullName?: string): string | null => {
   return `${array[0][0]}. ${array.reverse()[0]}`
 }
 
-export const fromDatePicker = (datePickerDate: string, currentDate: Date = new Date()): string => {
+export const fromDatePicker = (datePickerDate: string = '', currentDate: Date = new Date()): string => {
   const parsedDate = DateTime.fromFormat(datePickerDate, 'd/L/y', { locale: 'en-GB' })
 
   if (parsedDate.isValid) {
@@ -37,7 +36,7 @@ export const fromDatePicker = (datePickerDate: string, currentDate: Date = new D
   ).toFormat('d/L/yyyy')
 }
 
-export const getStartDate = (startDate: string, currentDate: Date = new Date()): string => {
+export const getStartDate = (startDate: string = '', currentDate: Date = new Date()): string => {
   const parsedDate = DateTime.fromFormat(startDate, 'd/L/y', { locale: 'en-GB' })
 
   if (parsedDate.isValid) {
