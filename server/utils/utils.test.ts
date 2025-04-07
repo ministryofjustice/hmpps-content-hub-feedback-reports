@@ -1,4 +1,4 @@
-import { convertToTitleCase, initialiseName, getStartDate, getEndDate } from './utils'
+import { convertToTitleCase, initialiseName, getStartDate, getEndDate, fromDatePicker } from './utils'
 
 describe('convertToTitleCase()', () => {
   it.each([
@@ -26,6 +26,18 @@ describe('initialiseName()', () => {
     ['Double barrelled', 'Robert-John Smith-Jones-Wilson', 'R. Smith-Jones-Wilson'],
   ])('%s initialiseName(%s, %s)', (_: string, a: string, expected: string) => {
     expect(initialiseName(a)).toEqual(expected)
+  })
+})
+
+describe('fromDatePicker()', () => {
+  const currentDate = new Date(2024, 0, 10)
+
+  it.each([
+    ['Empty string', '', '10/1/2024'],
+    ['Bad date 31st February 2024', '31/2/2024', '10/1/2024'],
+    ['30th March 2024', '30/3/2024', '30/3/2024'],
+  ])('%s getEndDate(%s, %s)', (_: string, a: string, expected: string) => {
+    expect(fromDatePicker(a, currentDate)).toEqual(expected)
   })
 })
 
