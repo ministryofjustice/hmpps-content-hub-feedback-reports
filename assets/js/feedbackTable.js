@@ -133,7 +133,7 @@ jQuery(() => {
   ]
 
   // use globally added startDate/endDate, these are validating in the route
-  if (startDate !== undefined && endDate !== undefined) {
+  if (typeof startDate !== 'undefined' && typeof endDate !== 'undefined') {
     createTable({
       id: 'feedbackTable',
       ajaxUrl: `/reports/data/${startDate.replaceAll('/', '-')}/${endDate.replaceAll('/', '-')}`,
