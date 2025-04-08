@@ -1,0 +1,61 @@
+{% extends "../partials/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{%- from "moj/components/date-picker/macro.njk" import mojDatePicker -%}
+
+{% set pageTitle = applicationName + " - Home" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+  <h1>Feedback</h1>
+
+  <form method="GET">
+    {{ mojDatePicker({
+      id: "startDate",
+      name: "startDate",
+      label: {
+        text: "Start date"
+      },
+      value: startDate,
+      hint: {
+        text: "For example, 17/5/2024."
+      }
+    }) }}
+    {{ mojDatePicker({
+      id: "endDate",
+      name: "endDate",
+      label: {
+        text: "End date"
+      },
+      value: endDate,
+      hint: {
+        text: "For example, 17/5/2024."
+      }
+    }) }}
+    {{ govukButton({
+      id: "changeDates",
+      name: "changeDates",
+      text: "Update",
+      element: "button"
+    }) }}
+  </form>
+  <div id="chartWrapper">
+    <div id="contentTypeChart" class="chartZone"></div>
+    <div id="sentimentChart" class="chartZone"></div>
+    <div id="commentBarChart" class="chartZone"></div>
+    <div id="commentPieChart" class="chartZone"></div>
+  </div>
+
+{% endblock %}
+
+{% block bodyEnd %}
+  <script nonce="{{ cspNonce }}">
+    const startDate = '{{ startDate }}'
+    const endDate = '{{ endDate }}'
+    const contentTypeData = {{ contentTypeData | safe }}
+    const commentData = {{ commentData | safe }}
+    const sentimentData = {{ sentimentData | safe }}
+  </script>
+  <script src="https://www.gstatic.com/charts/loader.js" nonce="{{ cspNonce }}"></script>
+  <script type="module" src="{{ '/assets/js/app.js' | assetMap }}"></script>
+{% endblock %}
