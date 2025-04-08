@@ -8,10 +8,12 @@ import nunjucksSetup from '../../utils/nunjucksSetup'
 import errorHandler from '../../errorHandler'
 import type { Services } from '../../services'
 import AuditService from '../../services/auditService'
+import FeedbackService from '../../services/feedbackService'
 import { HmppsUser } from '../../interfaces/hmppsUser'
 import setUpWebSession from '../../middleware/setUpWebSession'
 
 jest.mock('../../services/auditService')
+jest.mock('../../services/feedbackService')
 
 export const user: HmppsUser = {
   name: 'FIRST LAST',
@@ -59,6 +61,7 @@ export function appWithAllRoutes({
   production = false,
   services = {
     auditService: new AuditService(null) as jest.Mocked<AuditService>,
+    feedbackService: new FeedbackService(null) as jest.Mocked<FeedbackService>,
   },
   userSupplier = () => user,
 }: {
