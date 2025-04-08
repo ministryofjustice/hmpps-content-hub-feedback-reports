@@ -1,5 +1,9 @@
-google.charts.load('current', { packages: ['corechart', 'bar'] })
-google.charts.setOnLoadCallback(drawCharts)
+try {
+  google.charts.load('current', { packages: ['corechart', 'bar'] })
+  google.charts.setOnLoadCallback(drawCharts)
+} catch (e) {
+  console.log('Unable to load charts', e)
+}
 
 function drawCharts() {
   const contentTypeChartData = google.visualization.arrayToDataTable(contentTypeData)
