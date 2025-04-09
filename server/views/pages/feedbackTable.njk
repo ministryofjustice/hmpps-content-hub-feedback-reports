@@ -9,7 +9,7 @@
 
   <h1>Feedback</h1>
 
-  <form method="GET">
+  <form method="GET" id="dateSelectorWrapper">
     {{ mojDatePicker({
       id: "startDate",
       name: "startDate",
@@ -32,12 +32,14 @@
         text: "For example, 17/5/2024."
       }
     }) }}
-    {{ govukButton({
-      id: "changeDates",
-      name: "changeDates",
-      text: "Update",
-      element: "button"
-    }) }}
+    <div>
+      {{ govukButton({
+        id: "changeDates",
+        name: "changeDates",
+        text: "Update",
+        element: "button"
+      }) }}
+    </div>
   </form>
 
   <table id="feedbackTable" class="stripe">

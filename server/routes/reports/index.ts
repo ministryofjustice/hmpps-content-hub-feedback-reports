@@ -4,7 +4,7 @@ import { type RequestHandler, Router } from 'express'
 import asyncMiddleware from '../../middleware/asyncMiddleware'
 import type { Services } from '../../services'
 import { Page } from '../../services/auditService'
-import { fromDatePicker } from '../../utils/utils'
+import { countFields, fromDatePicker } from '../../utils/utils'
 import { CountData, CountFields, Feedback } from '../../@types/feedbackClient'
 
 export default function routes({ auditService, feedbackService }: Services): Router {
@@ -19,7 +19,7 @@ export default function routes({ auditService, feedbackService }: Services): Rou
       Number.parseInt(data.countField, 10),
       data.countField,
     ])
-    chartData.unshift(['Content Type', 'Count', { role: 'annotation' }])
+    chartData.unshift([fieldName, 'Count', { role: 'annotation' }])
 
     return chartData
   }
@@ -43,28 +43,20 @@ export default function routes({ auditService, feedbackService }: Services): Rou
 
     await auditService.logPageView(Page.FEEDBACK_CHARTS_PAGE, { who: res.locals.user.username, correlationId: req.id })
 
-    const contentTypeData: CountData[] = await feedbackService.retrieveFeedbackCount(
-      'contentType',
-      cleanStartDate,
-      cleanEndDate,
-    )
-    const sentimentData: CountData[] = await feedbackService.retrieveFeedbackCount(
-      'sentiment',
-      cleanStartDate,
-      cleanEndDate,
-    )
-    const commentData: CountData[] = await feedbackService.retrieveFeedbackCount(
-      'comment',
-      cleanStartDate,
-      cleanEndDate,
+    const chartData = await Promise.all(
+      countFields.map(async fieldName => {
+        return {
+          [fieldName]: await feedbackService.retrieveFeedbackCount(fieldName, cleanStartDate, cleanEndDate),
+        }
+      }),
     )
 
     res.render('pages/feedbackCharts', {
       startDate: cleanStartDate,
       endDate: cleanEndDate,
-      contentTypeData: JSON.stringify(countDataToChartData(contentTypeData, 'contentType')),
-      sentimentData: JSON.stringify(countDataToChartData(sentimentData, 'sentiment')),
-      commentData: JSON.stringify(countDataToChartData(commentData, 'comment')),
+      contentTypeData: JSON.stringify(countDataToChartData(chartData[0].contentType, 'contentType')),
+      sentimentData: JSON.stringify(countDataToChartData(chartData[1].sentiment, 'sentiment')),
+      commentData: JSON.stringify(countDataToChartData(chartData[2].comment, 'comment')),
     })
   })
 

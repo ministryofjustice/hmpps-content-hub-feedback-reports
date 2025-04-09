@@ -1,3 +1,5 @@
+import { countFields } from '../utils/utils'
+
 export interface Feedback {
   id: number
   sessionId: string
@@ -14,7 +16,7 @@ export interface Feedback {
   establishment: string
 }
 
-export type CountFields = 'contentType' | 'sentiment' | 'comment'
+export type CountFields = (typeof countFields)[number]
 
 export type CountData = {
   contentType?: string

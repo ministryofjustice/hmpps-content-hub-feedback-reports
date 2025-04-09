@@ -77,3 +77,5 @@ export const getEndDate = (endDate: string, currentDate: Date = new Date()): str
     })
     .toISO()
 }
+
+export const countFields = ['contentType', 'sentiment', 'comment'] as const
