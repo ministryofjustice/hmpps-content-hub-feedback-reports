@@ -132,7 +132,7 @@ jQuery(() => {
     },
   ]
 
-  // use globally added startDate/endDate, these are validating in the route
+  // use globally added startDate/endDate, these are validated in the route
   if (typeof startDate !== 'undefined' && typeof endDate !== 'undefined') {
     createTable({
       id: 'feedbackTable',
