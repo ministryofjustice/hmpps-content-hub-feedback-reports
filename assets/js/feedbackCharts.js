@@ -1,8 +1,10 @@
-try {
-  google.charts.load('current', { packages: ['corechart', 'bar'] })
-  google.charts.setOnLoadCallback(drawCharts)
-} catch (e) {
-  console.log('Unable to load charts', e)
+if (document.getElementsByClassName('chartPage').length > 0) {
+  try {
+    google.charts.load('current', { packages: ['corechart', 'bar'] })
+    google.charts.setOnLoadCallback(drawCharts)
+  } catch (e) {
+    console.log('Unable to load charts', e)
+  }
 }
 
 function drawCharts() {
@@ -47,6 +49,6 @@ function drawCharts() {
 
   contentTypeChart.draw(contentTypeChartData, contentTypeOptions)
   sentimentChart.draw(sentimentChartData, pieChartOptions)
-  commentBarChart.draw(commentChartData, contentTypeOptions)
+  commentBarChart.draw(commentChartData, commentBarOptions)
   commentPieChart.draw(commentChartData, pieChartOptions)
 }
