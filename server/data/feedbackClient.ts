@@ -36,6 +36,11 @@ export default class FeedbackClient {
         .select(fieldName)
         .count(`${fieldName} as countField`)
         .whereBetween('date', [queryStartDate, queryEndDate])
+        .modify(query => {
+          if (fieldName === 'comment') {
+            query.whereNot('comment', 'undefined')
+          }
+        })
         .groupBy(fieldName)
         .orderBy('countField', 'desc')
     } catch (error) {
