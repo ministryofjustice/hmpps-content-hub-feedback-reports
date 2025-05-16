@@ -35,7 +35,7 @@ describe.skip('FeedbackClient', () => {
 
       // mockSelect.mockReturnValue([feedbackData])
 
-      await client.retrieveFeedback('1/1/2024', '1/1/2024')
+      await client.retrieveFeedback('1/1/2024', '1/1/2024', '')
 
       expect(mockSelect).toHaveReturnedWith([feedbackData])
     })

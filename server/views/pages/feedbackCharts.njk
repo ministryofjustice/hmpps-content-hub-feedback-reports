@@ -1,6 +1,7 @@
 {% extends "../partials/layout.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {%- from "moj/components/date-picker/macro.njk" import mojDatePicker -%}
+{%- from "govuk/components/select/macro.njk" import govukSelect -%}
 
 {% set pageTitle = applicationName + " - Home" %}
 {% set mainClasses = "app-container govuk-body chartPage" %}
@@ -32,6 +33,14 @@
         text: "For example, 17/5/2024."
       }
     }) }}
+    {{ govukSelect({
+      id: "prison",
+      name: "prison",
+      label: {
+        text: "Prisons"
+      },
+      items: prisonsDropDown
+    }) }}
     <div>
       {{ govukButton({
         id: "changeDates",
@@ -54,6 +63,7 @@
   <script nonce="{{ cspNonce }}">
     const startDate = '{{ startDate }}'
     const endDate = '{{ endDate }}'
+    const prison = '{{ prison }}'
     const contentTypeData = {{ contentTypeData | safe }}
     const commentData = {{ commentData | safe }}
     const sentimentData = {{ sentimentData | safe }}
