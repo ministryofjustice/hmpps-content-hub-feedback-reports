@@ -14,9 +14,9 @@ describe('Feedback service', () => {
 
   describe('retrieveFeedback', () => {
     it('sends audit message using audit client', async () => {
-      await feedbackService.retrieveFeedback('', '')
+      await feedbackService.retrieveFeedback('', '', '')
 
-      expect(feedbackClient.retrieveFeedback).toHaveBeenCalledWith('', '')
+      expect(feedbackClient.retrieveFeedback).toHaveBeenCalledWith('', '', '')
     })
   })
 })

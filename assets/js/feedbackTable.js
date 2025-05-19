@@ -132,6 +132,16 @@ jQuery(() => {
     },
   ]
 
-  // use globally added startDate/endDate, these are validating in the route
-  createTable({ id: 'feedbackTable', ajaxUrl: `/reports/data/${startDate.replaceAll('/', '-')}/${endDate.replaceAll('/', '-')}`, orderColumn: 4, orderType: 'desc', columns })
+  // use globally added startDate/endDate, these are validated in the route
+  if (typeof startDate !== 'undefined' && typeof endDate !== 'undefined') {
+    const prisonName = typeof prison === 'string' && prison.length > 0 ? prison : 'all'
+
+    createTable({
+      id: 'feedbackTable',
+      ajaxUrl: `/reports/data/${prisonName}/${startDate.replaceAll('/', '-')}/${endDate.replaceAll('/', '-')}`,
+      orderColumn: 4,
+      orderType: 'desc',
+      columns,
+    })
+  }
 })

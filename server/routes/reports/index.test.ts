@@ -48,13 +48,13 @@ describe('Reports', () => {
       ])
 
       return request(app)
-        .get('/reports/data/1-1-2024/31-1-2024')
+        .get('/reports/data/all/1-1-2024/31-1-2024')
         .expect('Content-Type', /json/)
         .expect(res => {
           expect(res.text).toBe(
             '[{"title":"some title","contentType":"AUDIO","sentiment":"LIKE","comment":"","date":"1 Jan 2024","categories":"category1, category 2","series":"some series","establistment":"BERWYN"}]',
           )
-          expect(feedbackService.retrieveFeedback).toHaveBeenCalledWith('1/1/2024', '31/1/2024')
+          expect(feedbackService.retrieveFeedback).toHaveBeenCalledWith('1/1/2024', '31/1/2024', 'all')
         })
     })
   })

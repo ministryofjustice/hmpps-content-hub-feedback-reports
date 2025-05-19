@@ -3,6 +3,7 @@ import HmppsAuditClient, { AuditEvent } from '../data/hmppsAuditClient'
 export enum Page {
   HOME_PAGE = 'HOME_PAGE',
   FEEDBACK_TABLE_PAGE = 'FEEDBACK_TABLE',
+  FEEDBACK_CHARTS_PAGE = 'FEEDBACK_CHARTS',
 }
 
 export interface PageViewEventDetails {

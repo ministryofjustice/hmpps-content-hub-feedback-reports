@@ -4,7 +4,7 @@
 {%- from "govuk/components/select/macro.njk" import govukSelect -%}
 
 {% set pageTitle = applicationName + " - Home" %}
-{% set mainClasses = "app-container govuk-body" %}
+{% set mainClasses = "app-container govuk-body chartPage" %}
 
 {% block content %}
 
@@ -50,33 +50,12 @@
       }) }}
     </div>
   </form>
-
-  <table id="feedbackTable" class="stripe">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Establishment</th>
-        <th>Content Type</th>
-        <th>Sentiment</th>
-        <th>Comments</th>
-        <th>Date / Time</th>
-        <th>Categories</th>
-        <th>Series</th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-        <th>Title</th>
-        <th>Establishment</th>
-        <th>Content Type</th>
-        <th>Sentiment</th>
-        <th>Comments</th>
-        <th>Date / Time</th>
-        <th>Categories</th>
-        <th>Series</th>
-      </tr>
-    </tfoot>
-  </table>
+  <div id="chartWrapper">
+    <div id="contentTypeChart" class="chartZone"></div>
+    <div id="sentimentChart" class="chartZone"></div>
+    <div id="commentBarChart" class="chartZone"></div>
+    <div id="commentPieChart" class="chartZone"></div>
+  </div>
 
 {% endblock %}
 
@@ -85,6 +64,10 @@
     const startDate = '{{ startDate }}'
     const endDate = '{{ endDate }}'
     const prison = '{{ prison }}'
+    const contentTypeData = {{ contentTypeData | safe }}
+    const commentData = {{ commentData | safe }}
+    const sentimentData = {{ sentimentData | safe }}
   </script>
+  <script src="https://www.gstatic.com/charts/loader.js" nonce="{{ cspNonce }}"></script>
   <script type="module" src="{{ '/assets/js/app.js' | assetMap }}"></script>
 {% endblock %}

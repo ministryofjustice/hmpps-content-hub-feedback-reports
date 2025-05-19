@@ -1,22 +1,7 @@
 import knex, { Knex } from 'knex'
 import logger from '../../logger'
 import { getEndDate, getStartDate } from '../utils/utils'
-
-interface Feedback {
-  id: number
-  sessionId: string
-  feedbackId: string
-  date: Date
-  title: string
-  url: string
-  contentType: string
-  series: string
-  categories: string
-  topics: string
-  sentiment: string
-  comment: string
-  establishment: string
-}
+import { CountData, CountFields, Feedback } from '../@types/feedbackClient'
 
 export default class FeedbackClient {
   connection: Knex
@@ -30,16 +15,54 @@ export default class FeedbackClient {
     }
   }
 
-  async retrieveFeedback(startDate: string, endDate: string) {
+  async retrieveFeedback(startDate: string, endDate: string, prison: string): Promise<Feedback[]> {
     const queryStartDate = getStartDate(startDate)
     const queryEndDate = getEndDate(endDate)
+    const prisonName = prison !== '' && prison !== 'all' ? prison : ''
 
     try {
-      logger.info(queryStartDate, queryEndDate)
-      return this.connection<Feedback>('feedback').select('*').whereBetween('date', [queryStartDate, queryEndDate])
+      return this.connection<Feedback>('feedback')
+        .select('*')
+        .whereBetween('date', [queryStartDate, queryEndDate])
+        .modify(query => {
+          if (prisonName !== '') {
+            query.where('establishment', prison.toLocaleUpperCase())
+          }
+        })
     } catch (error) {
-      logger.error('Database select failed', error)
-      return Promise.reject()
+      logger.error('retrieveFeedback query failed', error)
+      return Promise.resolve([])
+    }
+  }
+
+  async retrieveFeedbackCount(
+    fieldName: CountFields,
+    startDate: string,
+    endDate: string,
+    prison: string,
+  ): Promise<CountData[]> {
+    const queryStartDate = getStartDate(startDate)
+    const queryEndDate = getEndDate(endDate)
+    const prisonName = prison !== '' && prison !== 'all' ? prison : ''
+
+    try {
+      return this.connection('feedback')
+        .select(fieldName)
+        .count(`${fieldName} as countField`)
+        .whereBetween('date', [queryStartDate, queryEndDate])
+        .modify(query => {
+          if (fieldName === 'comment') {
+            query.whereNot('comment', 'undefined')
+          }
+          if (prisonName !== '') {
+            query.where('establishment', prison.toLocaleUpperCase())
+          }
+        })
+        .groupBy(fieldName)
+        .orderBy('countField', 'desc')
+    } catch (error) {
+      logger.error('retrieveFeedbackCount query failed', error)
+      return Promise.resolve([])
     }
   }
 }
