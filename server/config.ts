@@ -110,7 +110,6 @@ export default {
       ssl: {
         rejectUnauthorized: false,
         cert: readFileSync(path.join(__dirname, '../../global-bundle.pem')),
-        sslMode: get('FEEDBACK_DATABASE_SSL_MODE', 'prefer'),
       },
     },
   },
