@@ -1,4 +1,4 @@
- generic-service:
+generic-service:
   nameOverride: hmpps-content-hub-feedback-reports
   productId: 'DPS101' # productId for the product that this belongs too, i.e. DPS001, see README.md for details
 
