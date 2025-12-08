@@ -22,11 +22,10 @@
     "int-test-ui": "cypress open --e2e --browser chrome",
     "clean": "rm -rf dist node_modules",
     "rebuild": "npm run clean && npm i && npm run build",
-    "setup": "npm ci && hmpps-npm-script-run-allowlist",
-    "int-test-init:ci": "cypress install"
+    "setup": "npm ci && hmpps-npm-script-run-allowlist"
   },
   "engines": {
-    "node": "^22",
+    "node": "^24",
     "npm": "^11"
   },
   "jest": {
@@ -80,7 +79,7 @@
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.859.0",
     "@ministryofjustice/frontend": "^5.1.5",
-    "@ministryofjustice/hmpps-monitoring": "^0.0.1",
+    "@ministryofjustice/hmpps-monitoring": "^1.0.0",
     "agentkeepalive": "^4.6.0",
     "applicationinsights": "^2.9.7",
     "body-parser": "^2.2.0",
@@ -114,9 +113,9 @@
   },
   "devDependencies": {
     "@jgoz/esbuild-plugin-typecheck": "^4.0.3",
-    "@ministryofjustice/eslint-config-hmpps": "^0.0.2",
+    "@ministryofjustice/eslint-config-hmpps": "^1.0.1",
     "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
-    "@tsconfig/node22": "^22.0.2",
+    "@tsconfig/node24": "24.0.3",
     "@types/bunyan": "^1.8.11",
     "@types/bunyan-format": "^0.2.9",
     "@types/compression": "^1.8.1",
