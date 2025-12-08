@@ -81,7 +81,6 @@ jobs:
       app_version: '${{ needs.build.outputs.app_version }}'
   deploy_staging:
     name: Deploy to staging environment
-    if: github.ref == 'refs/heads/main'
     needs:
       - build
       - deploy_dev
