@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
 import { type RequestHandler, Router } from 'express'
 
-import asyncMiddleware from '../../middleware/asyncMiddleware'
 import type { Services } from '../../services'
 import { Page } from '../../services/auditService'
 import { countFields, fromDatePicker } from '../../utils/utils'
@@ -10,7 +9,7 @@ import config from '../../config'
 
 export default function routes({ auditService, feedbackService }: Services): Router {
   const router = Router()
-  const get = (path: string | string[], handler: RequestHandler) => router.get(path, asyncMiddleware(handler))
+  const get = (path: string | string[], handler: RequestHandler) => router.get(path, handler)
   const cleanColumn = (text: string) => (text === 'undefined' || text === 'null' ? '' : text)
   const formatDate = (unformattedDate: Date) => DateTime.fromISO(unformattedDate.toISOString()).toFormat('d LLL yyyy')
   type ChartData = [string, string | number, string | object]

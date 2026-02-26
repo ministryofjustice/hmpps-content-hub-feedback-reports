@@ -33,6 +33,8 @@ RUN npm prune --no-audit --no-fund --omit=dev
 # Stage: copy production assets and dependencies
 FROM base
 
+ADD --chown=appuser:appgroup --chmod=644 https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem /app/global-bundle.pem
+
 COPY --from=build --chown=appuser:appgroup \
         /app/package.json \
         /app/package-lock.json \
