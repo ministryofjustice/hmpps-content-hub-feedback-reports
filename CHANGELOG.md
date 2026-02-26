@@ -111,7 +111,7 @@ Additionally, we have integrated a new and improved process for handling asset c
 
 In brief, this implementation creates a `manifest.json` file during the asset build process, which maps the original asset name to it's new rev'd name. We then use the assetMap filter, introduced as part of this PR, to match the original asset names to their hashed versions, like so
 
-`<script type="module" src="{{ '/assets/js/app.js' | assetMap }}"></script>`
+`<script type="module" src="{{ '/assets/js/index.js' | assetMap }}"></script>`
 
 To see the full conversation see the #typescript slack channel
 
