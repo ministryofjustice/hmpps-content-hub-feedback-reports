@@ -3,6 +3,8 @@ import hmppsAuth from '../mockApis/hmppsAuth'
 
 import { login, resetStubs } from '../testUtils'
 import IndexPage from '../pages'
+import AuthManageDetailsPage from '../pages/authManageDetails'
+import AuthSignInPage from '../pages/authSignIn'
 
 test.describe('SignIn', () => {
   test.afterEach(async () => {
@@ -45,7 +47,8 @@ test.describe('SignIn', () => {
     const indexPage = await IndexPage.verifyOnPage(page)
     await indexPage.signOut()
 
-    await expect(page.getByRole('heading')).toHaveText('Sign in')
+    const signInPage = await AuthSignInPage.verifyOnPage(page)
+    await expect(signInPage.page.getByRole('heading')).toHaveText('Sign in')
   })
 
   test('User can manage their details', async ({ page }) => {
@@ -53,8 +56,8 @@ test.describe('SignIn', () => {
 
     await hmppsAuth.stubManageDetailsPage()
 
-    const indexPage = await IndexPage.verifyOnPage(page)
-    await indexPage.clickManageUserDetails()
+    const authManagerPage = await AuthManageDetailsPage.verifyOnPage(page)
+    await authManagerPage.clickManageUserDetails()
 
     await expect(page.getByRole('heading')).toHaveText('Your account details')
   })
@@ -72,7 +75,7 @@ test.describe('SignIn', () => {
 
     await login(page, { name: 'Some OtherTestUser', active: true })
 
-    const indexPage = await IndexPage.verifyOnPage(page)
-    await expect(indexPage.usersName).toHaveText('S. Othertestuser')
+    const indexPAge = await IndexPage.verifyOnPage(page)
+    await expect(indexPAge.usersName).toHaveText('S. Othertestuser')
   })
 })
