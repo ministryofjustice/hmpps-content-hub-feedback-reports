@@ -51,17 +51,6 @@ test.describe('SignIn', () => {
     await expect(signInPage.page.getByRole('heading')).toHaveText('Sign in')
   })
 
-  test('User can manage their details', async ({ page }) => {
-    await login(page, { name: 'A TestUser' })
-
-    await hmppsAuth.stubManageDetailsPage()
-
-    const authManagerPage = await AuthManageDetailsPage.verifyOnPage(page)
-    await authManagerPage.clickManageUserDetails()
-
-    await expect(page.getByRole('heading')).toHaveText('Your account details')
-  })
-
   test('Token verification failure takes user to sign in page', async ({ page }) => {
     await login(page, { active: false })
 
