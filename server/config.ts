@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs'
 import path from 'node:path'
 
 const production = process.env.NODE_ENV === 'production'
+const runningInJest = process.env.NODE_ENV === 'test'
 
 function get<T>(name: string, fallback: T, options = { requireInProduction: false }): T | string {
   if (process.env[name]) {
@@ -88,7 +89,7 @@ export default {
       database: get('FEEDBACK_DATABASE_NAME', 'feedbackdatabase'),
       ssl: {
         rejectUnauthorized: false,
-        cert: readFileSync(path.join(__dirname, '../../global-bundle.pem')),
+        cert: readFileSync(path.join(__dirname, runningInJest ? '../global-bundle.pem' : '../../global-bundle.pem')),
       },
     },
   },
