@@ -3,7 +3,6 @@ import hmppsAuth from '../mockApis/hmppsAuth'
 
 import { login, resetStubs } from '../testUtils'
 import IndexPage from '../pages'
-import AuthManageDetailsPage from '../pages/authManageDetails'
 import AuthSignInPage from '../pages/authSignIn'
 
 test.describe('SignIn', () => {
