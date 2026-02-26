@@ -88,7 +88,7 @@ export default {
       database: get('FEEDBACK_DATABASE_NAME', 'feedbackdatabase'),
       ssl: {
         rejectUnauthorized: false,
-        cert: readFileSync(path.join(__dirname, '../../global-bundle.pem')),
+        cert: readFileSync(path.join(__dirname, '../global-bundle.pem')),
       },
     },
   },
