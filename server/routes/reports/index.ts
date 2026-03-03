@@ -82,9 +82,9 @@ export default function routes({ auditService, feedbackService }: Services): Rou
   })
 
   get('/reports/data/:prison/:startDate/:endDate', async (req, res) => {
-    const prison = req.params.prison ?? 'all'
-    const startDate = fromDatePicker(req.params.startDate.replaceAll('-', '/'))
-    const endDate = fromDatePicker(req.params.endDate.replaceAll('-', '/'))
+    const prison = req.params.prison?.toString() ?? 'all'
+    const startDate = fromDatePicker(req.params.startDate?.toString().replaceAll('-', '/'))
+    const endDate = fromDatePicker(req.params.endDate?.toString().replaceAll('-', '/'))
 
     const feedback: Feedback[] = await feedbackService.retrieveFeedback(startDate, endDate, prison)
     const parsedFeedback = feedback.map(feedbackEntry => {
@@ -104,9 +104,9 @@ export default function routes({ auditService, feedbackService }: Services): Rou
   })
 
   get('/reports/chart-data/:prison/:startDate/:endDate', async (req, res) => {
-    const prison = req.params.prison ?? 'all'
-    const startDate = fromDatePicker(req.params.startDate.replaceAll('-', '/'))
-    const endDate = fromDatePicker(req.params.endDate.replaceAll('-', '/'))
+    const prison = req.params.prison?.toString() ?? 'all'
+    const startDate = fromDatePicker(req.params.startDate?.toString().replaceAll('-', '/'))
+    const endDate = fromDatePicker(req.params.endDate?.toString().replaceAll('-', '/'))
 
     const contentTypeData: CountData[] = await feedbackService.retrieveFeedbackCount(
       'contentType',
