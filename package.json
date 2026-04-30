@@ -30,7 +30,7 @@
     "npm": "^11"
   },
   "dependencies": {
-    "@aws-sdk/client-sqs": "^3.1034.0",
+    "@aws-sdk/client-sqs": "^3.1035.0",
     "@ministryofjustice/frontend": "^9.0.0",
     "@ministryofjustice/hmpps-auth-clients": "^1.0.2",
     "@ministryofjustice/hmpps-monitoring": "^1.0.2",
@@ -55,13 +55,13 @@
     "http-errors": "^2.0.1",
     "jquery": "^3.7.1",
     "jwt-decode": "^4.0.0",
-    "knex": "^3.1.0",
+    "knex": "^3.2.9",
     "luxon": "3.7.2",
     "nocache": "^4.0.0",
     "nunjucks": "^3.2.4",
     "passport": "^0.7.0",
     "passport-oauth2": "^1.8.0",
-    "pg": "8.19.0",
+    "pg": "8.20.0",
     "redis": "^5.12.1",
     "superagent": "^10.3.0"
   },
