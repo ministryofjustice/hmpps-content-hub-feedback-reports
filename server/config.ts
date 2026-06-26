@@ -97,7 +97,9 @@ export default {
   environmentName: get('ENVIRONMENT_NAME', ''),
   sites: [
     '',
+    'BEDFORD',
     'BERWYN',
+    'BRISTOL',
     'BULLINGDON',
     'CARDIFF',
     'CHELMSFORD',
