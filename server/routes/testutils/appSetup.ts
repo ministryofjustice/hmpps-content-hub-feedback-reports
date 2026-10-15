@@ -19,6 +19,7 @@ jest.mock('../../services/feedbackService')
 export const user: HmppsUser = {
   name: 'FIRST LAST',
   userId: 'id',
+  userUuid: undefined,
   token: 'token',
   username: 'user1',
   displayName: 'First Last',
