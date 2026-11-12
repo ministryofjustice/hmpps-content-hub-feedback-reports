@@ -1,4 +1,5 @@
 import { HmppsUser } from '../../interfaces/hmppsUser'
+import { AuditingMiddlewareLocals } from '../../middleware/setUpAuditingMiddleware'
 
 export declare module 'express-session' {
   // Declare that the session will potentially contain these additional fields
@@ -22,7 +23,7 @@ export declare global {
       logout(done: (err: unknown) => void): void
     }
 
-    interface Locals {
+    interface Locals extends AuditingMiddlewareLocals {
       user: HmppsUser
       cspNonce: string
       csrfToken: string

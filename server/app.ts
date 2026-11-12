@@ -19,6 +19,7 @@ import setUpWebSession from './middleware/setUpWebSession'
 import indexRoutes from './routes/homepage'
 import reportRoutes from './routes/reports'
 import type { Services } from './services'
+import { setUpAuditingMiddleware } from './middleware/setUpAuditingMiddleware'
 
 export default function createApp(services: Services): express.Application {
   const app = express()
@@ -37,6 +38,13 @@ export default function createApp(services: Services): express.Application {
   app.use(authorisationMiddleware(['CONTENT_HUB_FEEDBACK_USER']))
   app.use(setUpCsrf())
   app.use(setUpCurrentUser())
+  app.use(
+    setUpAuditingMiddleware({
+      baseAuditEvent: req => ({
+        who: req.user.username,
+      }),
+    }),
+  )
 
   app.use(telemetryMiddleware.addUserMetadataToTelemetry())
   app.use(indexRoutes(services))
