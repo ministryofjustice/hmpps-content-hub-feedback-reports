@@ -40,8 +40,11 @@ export default function createApp(services: Services): express.Application {
   app.use(setUpCurrentUser())
   app.use(
     setUpAuditingMiddleware({
+      auditEventCallback: services.auditService.logAuditEvent,
       baseAuditEvent: req => ({
         who: req.user.username,
+        subjectType: 'NOT_APPLICABLE',
+        subjectId: undefined,
       }),
     }),
   )
