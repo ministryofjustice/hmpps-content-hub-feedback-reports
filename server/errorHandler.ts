@@ -16,6 +16,7 @@ export default function createErrorHandler(production: boolean) {
       : error.message
     res.locals.status = error.status
     res.locals.stack = production ? null : error.stack
+    res.locals.auditFailureMessage = error.message
 
     res.status(error.status || 500)
 
