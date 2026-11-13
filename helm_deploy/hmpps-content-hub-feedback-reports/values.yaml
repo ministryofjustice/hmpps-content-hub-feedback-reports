@@ -60,8 +60,6 @@ generic-service:
       FEEDBACK_DATABASE_USERNAME: "database_username"
       FEEDBACK_DATABASE_PASSWORD: "database_password"
       FEEDBACK_DATABASE_NAME: "database_name"
-    sqs-hmpps-audit-secret:
-      AUDIT_SQS_QUEUE_URL: 'sqs_queue_url'
 
   allowlist:
     groups:
