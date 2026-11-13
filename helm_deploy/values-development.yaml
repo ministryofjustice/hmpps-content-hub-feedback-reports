@@ -13,3 +13,7 @@ generic-service:
     TOKEN_VERIFICATION_API_URL: "https://token-verification-api-dev.prison.service.justice.gov.uk"
     ENVIRONMENT_NAME: DEVELOPMENT
     AUDIT_ENABLED: "true"
+
+  namespace_secrets:
+    sqs-hmpps-audit-secret:
+      AUDIT_SQS_QUEUE_URL: 'sqs_queue_url'
