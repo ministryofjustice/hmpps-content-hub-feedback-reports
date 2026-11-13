@@ -1,6 +1,5 @@
 import { RequestHandler, Request, Response } from 'express'
 import { AuditEvent } from '../data/hmppsAuditClient'
-import logger from '../../logger'
 
 export type AuditingMiddlewareLocals = {
   auditEventPrefix?: string
@@ -88,10 +87,6 @@ const logAuditEvent = async (auditEventSuffix: AuditEventSuffix, req: Request, r
       ...(auditFailureMessage ? { failureReason: auditFailureMessage } : {}),
     },
   }
-
-  Object.entries(auditEvent).forEach(([key, value]) => {
-    if (value === undefined || value === '') logger.warn(`setUpAuditingMiddleware: auditEvent missing field: ${key}`)
-  })
 
   await auditEventCallback(auditEvent)
 }
